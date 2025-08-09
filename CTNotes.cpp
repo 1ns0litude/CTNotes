@@ -7,7 +7,7 @@
 int help_menu(){
 
 
-    std::string red = "\e[31m";
+    std::string red = "\033[31m";
     std::string blue = "\e[0;34m";
     std::string green = "\e[0;32m";
     std::string reset = "\033[0m";
@@ -37,7 +37,10 @@ int main(int argc, char* argv[]){
         
         
         if (arg == "recon"){
-            
+            if (std::filesystem::exists("recon.md")){
+                std::cerr << "File Already Exists!\n";
+                return 1;
+            }
             std::ofstream file("recon.md");
             if (file.is_open()){
                 file << "<h1><font color='red'> NMap Scan </font></h1>" << std::endl;
@@ -63,7 +66,14 @@ int main(int argc, char* argv[]){
             std::string directory;
             std::cout << "CTF Name: ";
             if(getline(std::cin, directory)){
-                std::filesystem::create_directory(directory);
+                if(std::filesystem::exists(directory)){
+                    std::cerr << "Directory Already Exists!\n";
+                    return 1;
+                }
+                if(!std::filesystem::create_directory(directory)){
+                    std::cerr << "Error Creating Directory: " << errno << std::endl;
+                    return 1;
+                }
                 std::string full_path = directory + "/enumeration.md";
                 std::ofstream file2(full_path);
                 file2 << "<h1><font color='red'> Directories Found </font></h1>" << std::endl;
@@ -80,7 +90,13 @@ int main(int argc, char* argv[]){
                 }
 
             }
-        }                
+        }else{
+
+            std::cout << "Argument doesn't exist, Exiting...\n";
+            exit(1);
+        }
+        
+        
 
     }
 
