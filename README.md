@@ -3,7 +3,7 @@
 A lightweight and efficient tool to streamline note-taking while solving Hacking Capture The Flag (CTF) challenges. This program is designed to help you quickly organize findings, commands, and exploits during your CTF journey.
 🚀 Features
 
-    Structured note templates for CTFs
+    Structured note template for CTFs
 
     Easy-to-use CLI
 
